@@ -26,6 +26,8 @@ const Anima = () => {
         width: window.innerWidth,
         height: window.innerHeight,
         wireframes: false,
+        background: "none"
+        
       },
     });
 
@@ -59,10 +61,10 @@ const Anima = () => {
 
     World.add(engine.world, [
       // walls
-      Bodies.rectangle(200, 0, 600, 50, { isStatic: true }),
-      Bodies.rectangle(20, 600, 2222, 5, { isStatic: true }),
-      Bodies.rectangle(960, 300, 50, 600, { isStatic: true }),
-      Bodies.rectangle(0, 300, 50, 600, { isStatic: true }),
+      Bodies.rectangle(200, 0, 600, 50, { isStatic: true , render: {fillStyle: "transparent"}}),
+      Bodies.rectangle(20, 600, 2222, 5, { isStatic: true , render: {fillStyle: "transparent"}}),
+      Bodies.rectangle(960, 300, 50, 600, { isStatic: true , render: {fillStyle: "transparent"}}),
+      Bodies.rectangle(0, 300, 50, 600, { isStatic: true , render: {fillStyle: "transparent"}}),
     ]);
 
     World.add(engine.world, [ballA, ballB, ballC]);
@@ -101,7 +103,8 @@ const Anima = () => {
     };
   }, []);
 
-  return <div ref={sceneRef} />;
+  return <div ref={sceneRef} style={{ backgroundColor: "transparent", overflow:"hidden" }} />;
+
 };
 
 export default Anima;
