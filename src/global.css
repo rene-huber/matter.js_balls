@@ -1,0 +1,25 @@
+* {padding: 0; margin: 0;}
+body {
+    background: #303030;
+}
+
+.app {
+    background-color: yellow;
+    height: 555px;
+}
+
+.scenario {
+    background: url(./img/bk-pink.jpg) no-repeat center;
+    background-size: cover;
+    overflow: hidden;
+   }
+   
+   @media screen and (max-width: 1299px) { 
+       .scenario {
+           background:url(./img/bk-pink.jpg) no-repeat bottom center;
+           background-size: 100% 100%; 
+           overflow: hidden;
+          }
+       
+
+   }
