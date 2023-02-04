@@ -1,48 +1,33 @@
-import React, { useRef, useEffect } from "react";
-import ReactDOM from "react-dom";
+import React, { useEffect, useRef } from "react";
 import Matter from "matter-js";
-import ballImage from "../1.gif";
 
-const Anima = () => {
+const App = () => {
   const sceneRef = useRef(null);
 
   useEffect(() => {
-    const Engine = Matter.Engine,
+    var Engine = Matter.Engine,
       Render = Matter.Render,
       World = Matter.World,
       Bodies = Matter.Bodies,
       Mouse = Matter.Mouse,
       MouseConstraint = Matter.MouseConstraint;
 
-    const engine = Engine.create({});
+    var engine = Engine.create({
+      // positionIterations: 20
+    });
 
-    const render = Render.create({
+    var render = Render.create({
       element: sceneRef.current,
       engine: engine,
       options: {
-        width: 900,
+        width: 600,
         height: 600,
         wireframes: false
       }
     });
 
-    const ballA = Bodies.circle(210, 100, 30, {
-      restitution: 0.5,
-      render: {
-        sprite: {
-          texture: ballImage
-        }
-      }
-    });
-    const ballB = Bodies.circle(110, 50, 30, {
-      restitution: 0.5,
-      render: {
-        sprite: {
-          texture: ballImage
-        }
-      }
-    });
-
+    var ballA = Bodies.rectangle(210, 100, 30, 30, { restitution: 0.5, render: { sprite: { texture: 'https://w1.rene-huber.eu/wp-content/uploads/2020/12/logo-huber-1.png' } } });
+    var ballB = Bodies.rectangle(110, 50, 30, 30, { restitution: 0.5, render: { sprite: { texture: 'https://w1.rene-huber.eu/wp-content/uploads/2020/12/logo-huber-1.png' } } });
     World.add(engine.world, [
       // walls
       Bodies.rectangle(200, 0, 600, 50, { isStatic: true }),
@@ -54,7 +39,7 @@ const Anima = () => {
     World.add(engine.world, [ballA, ballB]);
 
     // add mouse control
-    const mouse = Mouse.create(render.canvas),
+    var mouse = Mouse.create(render.canvas),
       mouseConstraint = MouseConstraint.create(engine, {
         mouse: mouse,
         constraint: {
@@ -68,20 +53,10 @@ const Anima = () => {
     World.add(engine.world, mouseConstraint);
 
     Matter.Events.on(mouseConstraint, "mousedown", function(event) {
-      World.add(engine.world,
-        Bodies.circle(event.mouse.position.x, event.mouse.position.y, 30, {
-          restitution: 0.7,
-          render: {
-            sprite: {
-              texture: ballImage
-            }
-          }
-        })
-      );
+      World.add(engine.world, Bodies.rectangle(150, 50, 30, 30, { restitution: 0.7, render: { sprite: { texture: 'https://w1.rene-huber.eu/wp-content/uploads/2020/12/logo-huber-1.png' } } }));
     });
 
     Engine.run(engine);
-
     Render.run(render);
 
     return () => {
@@ -93,4 +68,4 @@ const Anima = () => {
   return <div ref={sceneRef} />;
 };
 
-export default Anima;
+export default App;

@@ -1,44 +1,75 @@
-import React, { useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import ReactDOM from "react-dom";
 import Matter from "matter-js";
+import ballImage from "./1.gif";
+import ballImage2 from "./err.png";
+import ballImage3 from "./tapa.jpg";
 
-const App = () => {
+const Anima = () => {
+  const sceneRef = useRef(null);
+
   useEffect(() => {
-    var Engine = Matter.Engine,
+    const Engine = Matter.Engine,
       Render = Matter.Render,
       World = Matter.World,
       Bodies = Matter.Bodies,
       Mouse = Matter.Mouse,
-      MouseConstraint = Matter.MouseConstraint;
+      MouseConstraint = Matter.MouseConstraint,
+      Events = Matter.Events;
 
-    var engine = Engine.create({
-      // positionIterations: 20
-    });
+    const engine = Engine.create({});
 
-    var render = Render.create({
+    const render = Render.create({
       element: sceneRef.current,
       engine: engine,
       options: {
-        width: 600,
-        height: 600,
+        width: window.innerWidth,
+        height: window.innerHeight,
         wireframes: false
       }
     });
 
-    var ballA = Bodies.circle(210, 100, 30, { restitution: 0.5 });
-    var ballB = Bodies.circle(110, 50, 30, { restitution: 0.5 });
+    const ballA = Bodies.circle(210, 100, 30, {
+      restitution: 0.5,
+      label: "ballA",
+      render: {
+        sprite: {
+          texture: ballImage
+        }
+      }
+    });
+    const ballB = Bodies.circle(110, 50, 30, {
+      restitution: 0.5,
+      label: "ballB",
+      render: {
+        sprite: {
+          texture: ballImage2
+        }
+      }
+    });
+    const ballC = Bodies.circle(610, 50, 30, {
+      restitution: 0.5,
+      label: "ballC",
+      render: {
+        sprite: {
+          texture: ballImage3
+        }
+      }
+    });
+
+
     World.add(engine.world, [
       // walls
       Bodies.rectangle(200, 0, 600, 50, { isStatic: true }),
-      Bodies.rectangle(200, 600, 600, 50, { isStatic: true }),
-      Bodies.rectangle(260, 300, 50, 600, { isStatic: true }),
+      Bodies.rectangle(20, 600, 2222, 5, { isStatic: true }),
+      Bodies.rectangle(960, 300, 50, 600, { isStatic: true }),
       Bodies.rectangle(0, 300, 50, 600, { isStatic: true })
     ]);
 
-    World.add(engine.world, [ballA, ballB]);
+    World.add(engine.world, [ballA, ballB, ballC]);
 
     // add mouse control
-    var mouse = Mouse.create(render.canvas),
+    const mouse = Mouse.create(render.canvas),
       mouseConstraint = MouseConstraint.create(engine, {
         mouse: mouse,
         constraint: {
@@ -51,18 +82,28 @@ const App = () => {
 
     World.add(engine.world, mouseConstraint);
 
-    Matter.Events.on(mouseConstraint, "mousedown", function(event) {
-      World.add(engine.world, Bodies.circle(150, 50, 30, { restitution: 0.7 }));
+    Events.on(engine, 'collisionStart', function(event) {
+        var pairs = event.pairs;
+        
+        for (var i = 0, j = pairs.length; i != j; ++i) {
+            var pair = pairs[i];
+
+            console.log(pair.bodyA.label, pair.bodyB.label);
+        }
     });
+
 
     Engine.run(engine);
 
     Render.run(render);
-  }, []);
 
-  const sceneRef = React.useRef();
+    return () => {
+      Matter.Render.stop(render);
+      Matter.Engine.clear(engine);
+    };
+  }, []);
 
   return <div ref={sceneRef} />;
 };
 
-export default App;
+export default Anima;
