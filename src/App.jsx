@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from "react";
-import ReactDOM from "react-dom";
+
 import Matter from "matter-js";
 import ballImage from "./1.gif";
 import ballImage2 from "./err.png";
@@ -25,8 +25,8 @@ const Anima = () => {
       options: {
         width: window.innerWidth,
         height: window.innerHeight,
-        wireframes: false
-      }
+        wireframes: false,
+      },
     });
 
     const ballA = Bodies.circle(210, 100, 30, {
@@ -34,36 +34,35 @@ const Anima = () => {
       label: "ballA",
       render: {
         sprite: {
-          texture: ballImage
-        }
-      }
+          texture: ballImage,
+        },
+      },
     });
     const ballB = Bodies.circle(110, 50, 30, {
       restitution: 0.5,
       label: "ballB",
       render: {
         sprite: {
-          texture: ballImage2
-        }
-      }
+          texture: ballImage2,
+        },
+      },
     });
     const ballC = Bodies.circle(610, 50, 30, {
       restitution: 0.5,
       label: "ballC",
       render: {
         sprite: {
-          texture: ballImage3
-        }
-      }
+          texture: ballImage3,
+        },
+      },
     });
-
 
     World.add(engine.world, [
       // walls
       Bodies.rectangle(200, 0, 600, 50, { isStatic: true }),
       Bodies.rectangle(20, 600, 2222, 5, { isStatic: true }),
       Bodies.rectangle(960, 300, 50, 600, { isStatic: true }),
-      Bodies.rectangle(0, 300, 50, 600, { isStatic: true })
+      Bodies.rectangle(0, 300, 50, 600, { isStatic: true }),
     ]);
 
     World.add(engine.world, [ballA, ballB, ballC]);
@@ -75,23 +74,22 @@ const Anima = () => {
         constraint: {
           stiffness: 0.2,
           render: {
-            visible: false
-          }
-        }
+            visible: false,
+          },
+        },
       });
 
     World.add(engine.world, mouseConstraint);
 
-    Events.on(engine, 'collisionStart', function(event) {
-        var pairs = event.pairs;
-        
-        for (var i = 0, j = pairs.length; i != j; ++i) {
-            var pair = pairs[i];
+    Events.on(engine, "collisionStart", function (event) {
+      var pairs = event.pairs;
 
-            console.log(pair.bodyA.label, pair.bodyB.label);
-        }
+      for (var i = 0, j = pairs.length; i !== j; ++i) {
+        var pair = pairs[i];
+
+        console.log(pair.bodyA.label, pair.bodyB.label);
+      }
     });
-
 
     Engine.run(engine);
 
