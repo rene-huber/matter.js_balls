@@ -1,9 +1,9 @@
-import React from 'react'
+import marmol from "../../img/marmol.png"
 
 function Statue() {
   return (
     <div>
-    <img src='https://w1.rene-huber.eu/wp-content/uploads/2020/12/logo-huber-1.png' alt='algo'/>
+    <img src={marmol} alt='algo'/>
     </div>
   )
 }

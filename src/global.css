@@ -1,25 +1,57 @@
-* {padding: 0; margin: 0;}
-body {
-    background: #303030;
+* {
+    padding: 0;
+    margin: 0;
 }
 
-.app {
-    background-color: yellow;
-    height: 555px;
+body {
+    background: #000000;
 }
+
+
+.nav {
+    position: absolute;
+    overflow: hidden;
+}
+
+.corona{  position:absolute;
+    overflow: hidden; bottom: -90px; right: 0px;}
 
 .scenario {
     background: url(./img/bk-pink.jpg) no-repeat center;
     background-size: cover;
     overflow: hidden;
-   }
-   
-   @media screen and (max-width: 1299px) { 
-       .scenario {
-           background:url(./img/bk-pink.jpg) no-repeat bottom center;
-           background-size: 100% 100%; 
-           overflow: hidden;
-          }
-       
 
-   }
+}
+
+.barraNegra {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100px;
+    background: #000;
+  }
+  
+  .box {
+    width: 355px;
+    height: 212;
+    padding: 0 21px;
+  }
+  .box p{color: #FFF; font-size: 11px; padding-top: 21px;}
+
+
+
+
+
+
+
+
+
+@media screen and (max-width: 1299px) {
+    .scenario {
+        background: url(./img/bk-pink.jpg) no-repeat bottom center;
+        background-size: 100% 100%;
+        overflow: hidden;
+    }
+
+
+}

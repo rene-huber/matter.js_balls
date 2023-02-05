@@ -1,0 +1,25 @@
+.logo{
+
+  position: absolute;
+  z-index: 1;
+  width: 353px;
+  margin: 0 auto;
+  height: 170px;
+  top: 10px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.logo img {
+  size: 10px;
+}
+  
+
+
+
+
+
+
+
+  @media screen and (max-width: 960px) {}
+    
